@@ -84,15 +84,15 @@ class PokerGameTest {
 		List<Player> players = PokerGame.createPlayers(shuffledDeck);
 
 		assertEquals(3, players.size());
-//		players.stream().filter(i -> i.isDealer() == true).forEach(i -> {
-//			assertTrue(i.getCards().size() == 5);
-//			System.out.println(i);
-//		});
-//
-//		players.stream().filter(i -> i.isDealer() == false).forEach(i -> {
-//			assertTrue(i.getCards().size() == 2);
-//			System.out.println(i);
-//		});
+		players.stream().filter(i -> i.isDealer() == true).forEach(i -> {
+			assertTrue(i.getCards().size() == 5);
+			System.out.println(i);
+		});
+
+		players.stream().filter(i -> i.isDealer() == false).forEach(i -> {
+			assertTrue(i.getCards().size() == 2);
+			System.out.println(i);
+		});
 
 	}
 

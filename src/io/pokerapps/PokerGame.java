@@ -147,7 +147,7 @@ public class PokerGame {
 		System.out.println("RANKING PLAYER...." + i);
 		playerCardCombinations.forEach(c -> {
 			Collections.sort(c);
-			System.out.println(c);
+			//System.out.println(c);
 		});
 
 		Collections.sort(playerCardCombinations, new RankByCategories());
@@ -164,6 +164,6 @@ public class PokerGame {
 		winningCombinations.add(player1BestCombination);
 
 		rankPlayerCardsByCategories(winningCombinations, 3);
-		System.out.println("Winning Combination = " + winningCombinations.stream().findFirst().get());
+		System.out.println("\n\n\nWinning Combination = " + winningCombinations.stream().findFirst().get());
 	}
 }
