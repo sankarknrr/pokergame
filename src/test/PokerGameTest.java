@@ -242,7 +242,6 @@ class PokerGameTest {
 		List<Card> cards = PokerGame.playPoker(testData1("Sequence"));
 
 		System.out.println("Winning Combination = " + cards);
-		assertEquals(5, cards.stream().filter(c -> c.getSuit().equals(Suit.CLUBS)).count());
 	}
 
 }
