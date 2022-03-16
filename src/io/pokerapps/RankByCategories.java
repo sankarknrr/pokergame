@@ -36,6 +36,7 @@ public class RankByCategories implements Comparator<List<Card>> {
 		boolean cardThreeOfAKindDoesntExists = true;
 		boolean cardPairDoesntExists = true;
 		boolean cardAceFourOfAKindDoesntExists = true;
+		boolean cardSequenceExists = true;
 		int rank = 0;
 
 		// Ace 4 of a kind
@@ -85,8 +86,24 @@ public class RankByCategories implements Comparator<List<Card>> {
 					rank = 3;
 			}
 		}
-		
-	return rank;
+
+		// in a sequence
+		int[] seqNo = groupByCardValue(cards).keySet().stream().sorted().mapToInt(c -> c.getCardNumber()).toArray();
+
+		for (int i = 0; i < seqNo.length - 1; i++) {
+			if (seqNo.length < 5 || seqNo[i + 1] != seqNo[i] + 1) {
+				cardSequenceExists = false;
+				break;
+			}
+		}
+
+		if (cardSequenceExists && rank < 5) {
+			rank = 5;
+		} else if (cardSequenceExists && rank == 6) {
+			rank = 9;
+		}
+
+		return rank;
 
 	}
 

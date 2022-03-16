@@ -147,6 +147,13 @@ class PokerGameTest {
 			cardD.add(new Card(Suit.CLUBS, CardValue.FIVE));
 			cardD.add(new Card(Suit.CLUBS, CardValue.QUEEN));
 		}
+		
+		if (category.equalsIgnoreCase("Sequence")) {
+			cardD.add(new Card(Suit.CLUBS, CardValue.FIVE));
+			cardD.add(new Card(Suit.SPADES, CardValue.JACK));
+			cardD.add(new Card(Suit.DIAMONDS, CardValue.EIGHT));
+			cardD.add(new Card(Suit.DIAMONDS, CardValue.SEVEN));
+		}
 
 		return cardD;
 	}
@@ -221,13 +228,21 @@ class PokerGameTest {
 	@Test
 	void testPlayPokerFlush() {
 
-		System.out.println("Playing straight flush or same suit hand");
+		System.out.println("Playing flush or same suit hand");
 		List<Card> cards = PokerGame.playPoker(testData1("SameSuit"));
 
 		System.out.println("Winning Combination = " + cards);
 		assertEquals(5, cards.stream().filter(c -> c.getSuit().equals(Suit.CLUBS)).count());
 	}
 
+	@Test
+	void testPlayPokerSqeuence() {
 
+		System.out.println("Playing straight hand");
+		List<Card> cards = PokerGame.playPoker(testData1("Sequence"));
+
+		System.out.println("Winning Combination = " + cards);
+		assertEquals(5, cards.stream().filter(c -> c.getSuit().equals(Suit.CLUBS)).count());
+	}
 
 }
