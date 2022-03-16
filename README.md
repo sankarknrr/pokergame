@@ -21,8 +21,10 @@ Categories ranked so far
 
 1. 4 Ace of a kind
 2. Three of a kind
-3. Pair
-4. Other categories are in progress and will check-in more
+3. Full house
+4. One Pair
+5. Two Pair
+6. Other categories are in progress and will check-in more
 
 
 
