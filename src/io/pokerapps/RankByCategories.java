@@ -51,12 +51,17 @@ public class RankByCategories implements Comparator<List<Card>> {
 
 		cardThreeOfAKindDoesntExists = (threesFilter.values().removeIf(v -> v == 3) == true) ? false : true;
 		if (cardAceFourOfAKindDoesntExists && !cardThreeOfAKindDoesntExists)
-			rank = 2;
+			rank = 3;
 
 		// 2 of a kind
 		cardPairDoesntExists = (threesFilter.values().removeIf(v -> v == 2) == true) ? false : true;
-		if (cardAceFourOfAKindDoesntExists && cardThreeOfAKindDoesntExists && !cardPairDoesntExists)
-			rank = 1;
+		if (cardAceFourOfAKindDoesntExists && !cardPairDoesntExists)
+			rank = 2;
+		
+		// Full house
+		if (!cardThreeOfAKindDoesntExists && !cardPairDoesntExists) {
+			rank = 5;
+		}
 
 		return rank;
 	}

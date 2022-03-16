@@ -96,53 +96,75 @@ class PokerGameTest {
 
 	}
 
-	@Test
-	void testPlayPoker() {
+	List<Card> testDataPlayer(Card card1, Card card2) {
 
-		List<Player> players = new ArrayList<Player>();
+		List<Card> playerCards = new ArrayList<Card>();
+		playerCards.add(card1);
+		playerCards.add(card2);
 
-		List<Card> cards1 = new ArrayList<Card>();
-		Card card1 = new Card(Suit.CLUBS, CardValue.EIGHT);
-		Card card2 = new Card(Suit.DIAMONDS, CardValue.ACE);
-		cards1.add(card1);
-		cards1.add(card2);
-		Player player1 = new Player(cards1, false);
-		players.add(player1);
-
-		List<Card> cards2 = new ArrayList<Card>();
-		Card carda = new Card(Suit.CLUBS, CardValue.NINE);
-		Card cardb = new Card(Suit.DIAMONDS, CardValue.SIX);
-		cards2.add(carda);
-		cards2.add(cardb);
-		Player player2 = new Player(cards2, false);
-		players.add(player2);
-
-		List<Card> cardD = new ArrayList<Card>();
-		Card d1 = new Card(Suit.CLUBS, CardValue.ACE);
-		Card d2 = new Card(Suit.HEARTS, CardValue.ACE);
-		Card d3 = new Card(Suit.SPADES, CardValue.NINE);
-		Card d4 = new Card(Suit.SPADES, CardValue.ACE);
-		Card d5 = new Card(Suit.DIAMONDS, CardValue.JACK);
-
-		cardD.add(d1);
-		cardD.add(d2);
-		cardD.add(d3);
-		cardD.add(d4);
-		cardD.add(d5);
-
-		Player dealer = new Player(cardD, true);
-		players.add(dealer);
-
-		players.stream().filter(i -> i.isDealer() == true).forEach(i -> {
-			assertTrue(i.getCards().size() == 5);
-		});
-
-		players.stream().filter(i -> i.isDealer() == false).forEach(i -> {
-			assertTrue(i.getCards().size() == 2);
-		});
-		
-		PokerGame.playPoker(players);
-
+		return playerCards;
 	}
 
+	List<Card> testData(String category) {
+
+		List<Card> cardD = new ArrayList<Card>();
+
+		cardD.add(new Card(Suit.SPADES, CardValue.NINE));
+
+		if (category.equalsIgnoreCase("FourOfAKind")) {
+			cardD.add(new Card(Suit.CLUBS, CardValue.ACE));
+			cardD.add(new Card(Suit.HEARTS, CardValue.ACE));
+			cardD.add(new Card(Suit.SPADES, CardValue.ACE));
+			cardD.add(new Card(Suit.DIAMONDS, CardValue.JACK));
+		}
+
+		if (category.equalsIgnoreCase("FullHouse")) {
+			cardD.add(new Card(Suit.CLUBS, CardValue.ACE));
+			cardD.add(new Card(Suit.HEARTS, CardValue.ACE));
+			cardD.add(new Card(Suit.SPADES, CardValue.NINE));
+			cardD.add(new Card(Suit.DIAMONDS, CardValue.SIX));
+		}
+
+		if (category.equalsIgnoreCase("TwoPair")) {
+			cardD.add(new Card(Suit.CLUBS, CardValue.ACE));
+			cardD.add(new Card(Suit.SPADES, CardValue.JACK));
+			cardD.add(new Card(Suit.DIAMONDS, CardValue.SIX));
+			cardD.add(new Card(Suit.DIAMONDS, CardValue.QUEEN));
+		}
+
+		return cardD;
+	}
+
+	List<Player> testData1(String category) {
+
+		List<Player> players = new ArrayList<Player>();
+		players.add(new Player(
+				testDataPlayer(new Card(Suit.CLUBS, CardValue.EIGHT), new Card(Suit.DIAMONDS, CardValue.ACE)), false));
+		players.add(new Player(
+				testDataPlayer(new Card(Suit.CLUBS, CardValue.NINE), new Card(Suit.DIAMONDS, CardValue.SIX)), false));
+		players.add(new Player(testData(category), true));
+
+		return players;
+	}
+
+	@Test
+	void testPlayPokerFourOfAKind() {
+
+		System.out.println("Playing four of kind hand");
+		PokerGame.playPoker(testData1("FourOfAKind"));
+	}
+
+	@Test
+	void testPlayPokerFullHouse() {
+
+		System.out.println("Playing full house hand");
+		PokerGame.playPoker(testData1("FullHouse"));
+	}
+	
+	//@Test
+	void testPlayPokerTwoPair() {
+
+		System.out.println("Playing two pair hand");
+		PokerGame.playPoker(testData1("TwoPair"));
+	}
 }
