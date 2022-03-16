@@ -167,7 +167,12 @@ class PokerGameTest {
 	void testPlayPokerFourOfAKind() {
 
 		System.out.println("Playing four of kind hand");
-		PokerGame.playPoker(testData1("FourOfAKind"));
+		List<Card> cards = PokerGame.playPoker(testData1("FourOfAKind"));
+		
+		System.out.println("\n\n Winning Combination = " + cards);
+		Map<CardValue, Long> m = RankByCategories.groupByCardValue(cards);
+		
+		assertTrue(m.values().removeIf(l -> l == 4));
 	}
 
 	@Test
