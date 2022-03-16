@@ -16,7 +16,7 @@ How to Run
 Choose PokerGameTest.java in Spring tool suite
 And run as Junit Test to test the test cases.
 
-Categories ranked so far
+Categories ranked
 =========================
 
 1. 4 Ace of a kind
@@ -24,7 +24,8 @@ Categories ranked so far
 3. Full house
 4. One Pair
 5. Two Pair
-6. Other categories are in progress and will check-in more
+6. Straight
+7. Flush
 
 
 
