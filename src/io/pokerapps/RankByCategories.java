@@ -109,5 +109,13 @@ public class RankByCategories implements Comparator<List<Card>> {
 
 		return rank;
 	}
+	
+	public static Map<CardValue, Long> groupByCardValue(List<Card> cards) {
+		return cards.stream().collect(Collectors.groupingBy(Card::getCardValue, Collectors.counting()));
+	}
+
+	public static Map<Suit, Long> groupBySuit(List<Card> cards) {
+		return cards.stream().collect(Collectors.groupingBy(Card::getSuit, Collectors.counting()));
+	}
 
 }

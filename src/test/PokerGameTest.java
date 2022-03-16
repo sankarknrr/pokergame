@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -131,14 +133,14 @@ class PokerGameTest {
 			cardD.add(new Card(Suit.DIAMONDS, CardValue.FIVE));
 			cardD.add(new Card(Suit.DIAMONDS, CardValue.QUEEN));
 		}
-		
+
 		if (category.equalsIgnoreCase("OnePair")) {
 			cardD.add(new Card(Suit.CLUBS, CardValue.KING));
 			cardD.add(new Card(Suit.SPADES, CardValue.FOUR));
 			cardD.add(new Card(Suit.DIAMONDS, CardValue.FIVE));
 			cardD.add(new Card(Suit.DIAMONDS, CardValue.QUEEN));
 		}
-		
+
 		if (category.equalsIgnoreCase("SameSuit")) {
 			cardD.add(new Card(Suit.CLUBS, CardValue.KING));
 			cardD.add(new Card(Suit.CLUBS, CardValue.FOUR));
@@ -172,27 +174,55 @@ class PokerGameTest {
 	void testPlayPokerFullHouse() {
 
 		System.out.println("Playing full house hand");
-		PokerGame.playPoker(testData1("FullHouse"));
+		List<Card> cards = PokerGame.playPoker(testData1("FullHouse"));
+		
+		System.out.println("\n\n Winning Combination = " + cards);
+		Map<CardValue, Long> m = RankByCategories.groupByCardValue(cards);
+		// one 3 of a kind
+		m.values().removeIf(l -> l == 3 );
+		// one pair
+		m.values().removeIf(l -> l == 2 );
+
+		assertEquals(0, m.keySet().size());
 	}
-	
+
 	@Test
 	void testPlayPokerTwoPair() {
 
 		System.out.println("Playing two pair hand");
-		PokerGame.playPoker(testData1("TwoPair"));
+		List<Card> cards = PokerGame.playPoker(testData1("TwoPair"));
+
+		System.out.println("\n\n Winning Combination = " + cards);
+		Map<CardValue, Long> m = RankByCategories.groupByCardValue(cards);
+		m.values().removeIf(l -> l < 2);
+
+		assertEquals(2, m.keySet().size());
 	}
-	
+
 	@Test
 	void testPlayPokerOnePair() {
 
 		System.out.println("Playing one pair hand");
-		PokerGame.playPoker(testData1("OnePair"));
+		List<Card> cards = PokerGame.playPoker(testData1("OnePair"));
+
+		System.out.println("\n\n Winning Combination = " + cards);
+		Map<CardValue, Long> m = RankByCategories.groupByCardValue(cards);
+		m.values().removeIf(l -> l < 2);
+
+		assertEquals(1, m.keySet().size());
+
 	}
-	
+
 	@Test
 	void testPlayPokerStraightFlush() {
 
 		System.out.println("Playing straight flush or same suit hand");
-		PokerGame.playPoker(testData1("SameSuit"));
+		List<Card> cards = PokerGame.playPoker(testData1("SameSuit"));
+
+		System.out.println("Winning Combination = " + cards);
+		assertEquals(5, cards.stream().filter(c -> c.getSuit().equals(Suit.CLUBS)).count());
 	}
+
+
+
 }

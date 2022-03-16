@@ -160,9 +160,7 @@ public class PokerGame {
 
 		winningCombinations.add(player1BestCombination);
 		winningCombinations.add(player2BestCombination);
-
 		rankPlayerCardsByCategories(winningCombinations, 3);
-		System.out.println("\n\n\nWinning Combination = " + winningCombinations.stream().findFirst().get());
 
 		return winningCombinations.stream().findFirst().get();
 	}
