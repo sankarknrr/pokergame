@@ -11,6 +11,11 @@ Code is built using Spring Tool Suite/Eclipse...
 
 Please import the project into Spring Tool Suite as Java Application and Run As Java Application
 
+How to Run
+============
+Choose PokerGameTest.java in Spring tool suite
+And run as Junit Test to test the test cases.
+
 Categories ranked so far
 =========================
 
