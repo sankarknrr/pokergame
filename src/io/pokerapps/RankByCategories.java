@@ -21,11 +21,6 @@ public class RankByCategories implements Comparator<List<Card>> {
 			return -1;
 		}
 
-		int a = furtherRankIfTheyAreEqual(cardList1, cardList2, cardList1Rank);
-		if (a != 0) {
-			return a;
-		}
-
 		for (int i = 0; i < cardList1.size(); i++) {
 			int c = cardList2.get(i).compareTo(cardList1.get(i));
 			if (c != 0) {
@@ -63,9 +58,7 @@ public class RankByCategories implements Comparator<List<Card>> {
 		}
 
 		// 3 of a kind
-		Map<CardValue, Long> threesFilter = cards.stream()
-				.collect(Collectors.groupingBy(Card::getCardValue, Collectors.counting()));
-
+		Map<CardValue, Long> threesFilter = groupByCardValue(cards);
 		cardThreeOfAKindDoesntExists = (threesFilter.values().removeIf(v -> v == 3) == true) ? false : true;
 		if (cardAceFourOfAKindDoesntExists && !cardThreeOfAKindDoesntExists)
 			if (rank < 4)
@@ -92,10 +85,12 @@ public class RankByCategories implements Comparator<List<Card>> {
 					rank = 3;
 			}
 		}
+		
+	return rank;
 
-		return rank;
 	}
 
+	// TODO
 	private int furtherRankIfTheyAreEqual(List<Card> cards1, List<Card> cards2, int currentRank) {
 		int rank = 0;
 
@@ -109,7 +104,7 @@ public class RankByCategories implements Comparator<List<Card>> {
 
 		return rank;
 	}
-	
+
 	public static Map<CardValue, Long> groupByCardValue(List<Card> cards) {
 		return cards.stream().collect(Collectors.groupingBy(Card::getCardValue, Collectors.counting()));
 	}

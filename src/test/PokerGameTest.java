@@ -219,7 +219,7 @@ class PokerGameTest {
 	}
 
 	@Test
-	void testPlayPokerStraightFlush() {
+	void testPlayPokerFlush() {
 
 		System.out.println("Playing straight flush or same suit hand");
 		List<Card> cards = PokerGame.playPoker(testData1("SameSuit"));
