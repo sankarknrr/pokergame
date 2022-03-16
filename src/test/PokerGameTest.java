@@ -135,12 +135,10 @@ class PokerGameTest {
 
 		players.stream().filter(i -> i.isDealer() == true).forEach(i -> {
 			assertTrue(i.getCards().size() == 5);
-			System.out.println(i);
 		});
 
 		players.stream().filter(i -> i.isDealer() == false).forEach(i -> {
 			assertTrue(i.getCards().size() == 2);
-			System.out.println(i);
 		});
 		
 		PokerGame.playPoker(players);

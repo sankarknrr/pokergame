@@ -161,7 +161,7 @@ public class PokerGame {
 		List<List<Card>> winningCombinations = new ArrayList<List<Card>>();
 
 		winningCombinations.add(player1BestCombination);
-		winningCombinations.add(player1BestCombination);
+		winningCombinations.add(player2BestCombination);
 
 		rankPlayerCardsByCategories(winningCombinations, 3);
 		System.out.println("\n\n\nWinning Combination = " + winningCombinations.stream().findFirst().get());
