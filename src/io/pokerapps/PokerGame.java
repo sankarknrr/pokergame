@@ -91,8 +91,7 @@ public class PokerGame {
 		return false;
 	}
 
-	// possible 3 card combinations out of 5 dealer cards are 10
-	public static void playPoker(List<Player> players) {
+	public static List<Card> playPoker(List<Player> players) {
 
 		List<char[]> combinations = Util.possibleCombinationsUsingBits();
 
@@ -137,7 +136,7 @@ public class PokerGame {
 		rankPlayerCardsByCategories(player1CardCombinations, 1);
 		rankPlayerCardsByCategories(player2CardCombinations, 2);
 
-		findWinner(player1CardCombinations.stream().findFirst().get(),
+		return findWinner(player1CardCombinations.stream().findFirst().get(),
 				player2CardCombinations.stream().findFirst().get());
 
 	}
@@ -155,7 +154,7 @@ public class PokerGame {
 		playerCardCombinations.forEach(c -> System.out.println(c));
 	}
 
-	public static void findWinner(List<Card> player1BestCombination, List<Card> player2BestCombination) {
+	public static List<Card> findWinner(List<Card> player1BestCombination, List<Card> player2BestCombination) {
 
 		List<List<Card>> winningCombinations = new ArrayList<List<Card>>();
 
@@ -164,5 +163,7 @@ public class PokerGame {
 
 		rankPlayerCardsByCategories(winningCombinations, 3);
 		System.out.println("\n\n\nWinning Combination = " + winningCombinations.stream().findFirst().get());
+
+		return winningCombinations.stream().findFirst().get();
 	}
 }

@@ -51,22 +51,36 @@ public class RankByCategories implements Comparator<List<Card>> {
 		if (!cardAceFourOfAKindDoesntExists)
 			rank = 8;
 
+		// Flush
+		Set<Suit> flushFilter = cards.stream().collect(
+				Collectors.collectingAndThen(Collectors.groupingBy(Card::getSuit, Collectors.counting()), m -> {
+					m.values().removeIf(l -> l < 5);
+					return m.keySet();
+				}));
+		if (flushFilter.size() > 0) {
+			if (rank < 6)
+				rank = 6;
+		}
+
 		// 3 of a kind
 		Map<CardValue, Long> threesFilter = cards.stream()
 				.collect(Collectors.groupingBy(Card::getCardValue, Collectors.counting()));
 
 		cardThreeOfAKindDoesntExists = (threesFilter.values().removeIf(v -> v == 3) == true) ? false : true;
 		if (cardAceFourOfAKindDoesntExists && !cardThreeOfAKindDoesntExists)
-			rank = 4;
+			if (rank < 4)
+				rank = 4;
 
 		// 2 of a kind
 		cardPairDoesntExists = (threesFilter.values().removeIf(v -> v == 2) == true) ? false : true;
 		if (cardAceFourOfAKindDoesntExists && !cardPairDoesntExists)
-			rank = 2;
+			if (rank < 2)
+				rank = 2;
 
 		// Full house or two pair
 		if (!cardThreeOfAKindDoesntExists && !cardPairDoesntExists) {
-			rank = 7;
+			if (rank < 7)
+				rank = 7;
 		} else {
 			// Another 2 of a kind
 			if (cards.stream().collect(Collectors
@@ -74,7 +88,8 @@ public class RankByCategories implements Comparator<List<Card>> {
 						m.values().removeIf(l -> l < 2);
 						return m.keySet();
 					})).size() > 1) {
-				rank = 3;
+				if (rank < 3)
+					rank = 3;
 			}
 		}
 

@@ -138,6 +138,13 @@ class PokerGameTest {
 			cardD.add(new Card(Suit.DIAMONDS, CardValue.FIVE));
 			cardD.add(new Card(Suit.DIAMONDS, CardValue.QUEEN));
 		}
+		
+		if (category.equalsIgnoreCase("SameSuit")) {
+			cardD.add(new Card(Suit.CLUBS, CardValue.KING));
+			cardD.add(new Card(Suit.CLUBS, CardValue.FOUR));
+			cardD.add(new Card(Suit.CLUBS, CardValue.FIVE));
+			cardD.add(new Card(Suit.CLUBS, CardValue.QUEEN));
+		}
 
 		return cardD;
 	}
@@ -148,7 +155,7 @@ class PokerGameTest {
 		players.add(new Player(
 				testDataPlayer(new Card(Suit.CLUBS, CardValue.EIGHT), new Card(Suit.DIAMONDS, CardValue.ACE)), false));
 		players.add(new Player(
-				testDataPlayer(new Card(Suit.CLUBS, CardValue.NINE), new Card(Suit.DIAMONDS, CardValue.SIX)), false));
+				testDataPlayer(new Card(Suit.CLUBS, CardValue.NINE), new Card(Suit.CLUBS, CardValue.SIX)), false));
 		players.add(new Player(testData(category), true));
 
 		return players;
@@ -180,5 +187,12 @@ class PokerGameTest {
 
 		System.out.println("Playing one pair hand");
 		PokerGame.playPoker(testData1("OnePair"));
+	}
+	
+	@Test
+	void testPlayPokerStraightFlush() {
+
+		System.out.println("Playing straight flush or same suit hand");
+		PokerGame.playPoker(testData1("SameSuit"));
 	}
 }
