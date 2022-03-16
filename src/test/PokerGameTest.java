@@ -127,8 +127,15 @@ class PokerGameTest {
 
 		if (category.equalsIgnoreCase("TwoPair")) {
 			cardD.add(new Card(Suit.CLUBS, CardValue.ACE));
-			cardD.add(new Card(Suit.SPADES, CardValue.JACK));
-			cardD.add(new Card(Suit.DIAMONDS, CardValue.SIX));
+			cardD.add(new Card(Suit.SPADES, CardValue.SIX));
+			cardD.add(new Card(Suit.DIAMONDS, CardValue.FIVE));
+			cardD.add(new Card(Suit.DIAMONDS, CardValue.QUEEN));
+		}
+		
+		if (category.equalsIgnoreCase("OnePair")) {
+			cardD.add(new Card(Suit.CLUBS, CardValue.KING));
+			cardD.add(new Card(Suit.SPADES, CardValue.FOUR));
+			cardD.add(new Card(Suit.DIAMONDS, CardValue.FIVE));
 			cardD.add(new Card(Suit.DIAMONDS, CardValue.QUEEN));
 		}
 
@@ -161,10 +168,17 @@ class PokerGameTest {
 		PokerGame.playPoker(testData1("FullHouse"));
 	}
 	
-	//@Test
+	@Test
 	void testPlayPokerTwoPair() {
 
 		System.out.println("Playing two pair hand");
 		PokerGame.playPoker(testData1("TwoPair"));
+	}
+	
+	@Test
+	void testPlayPokerOnePair() {
+
+		System.out.println("Playing one pair hand");
+		PokerGame.playPoker(testData1("OnePair"));
 	}
 }

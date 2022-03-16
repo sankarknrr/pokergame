@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class RankByCategories implements Comparator<List<Card>> {
@@ -18,6 +19,11 @@ public class RankByCategories implements Comparator<List<Card>> {
 			return 1;
 		} else if (cardList2Rank < cardList1Rank) {
 			return -1;
+		}
+
+		int a = furtherRankIfTheyAreEqual(cardList1, cardList2, cardList1Rank);
+		if (a != 0) {
+			return a;
 		}
 
 		for (int i = 0; i < cardList1.size(); i++) {
@@ -43,7 +49,7 @@ public class RankByCategories implements Comparator<List<Card>> {
 
 		cardAceFourOfAKindDoesntExists = (aceFilter.values().removeIf(v -> v == 4) == true) ? false : true;
 		if (!cardAceFourOfAKindDoesntExists)
-			rank = 4;
+			rank = 8;
 
 		// 3 of a kind
 		Map<CardValue, Long> threesFilter = cards.stream()
@@ -51,17 +57,40 @@ public class RankByCategories implements Comparator<List<Card>> {
 
 		cardThreeOfAKindDoesntExists = (threesFilter.values().removeIf(v -> v == 3) == true) ? false : true;
 		if (cardAceFourOfAKindDoesntExists && !cardThreeOfAKindDoesntExists)
-			rank = 3;
+			rank = 4;
 
 		// 2 of a kind
 		cardPairDoesntExists = (threesFilter.values().removeIf(v -> v == 2) == true) ? false : true;
 		if (cardAceFourOfAKindDoesntExists && !cardPairDoesntExists)
 			rank = 2;
-		
-		// Full house
+
+		// Full house or two pair
 		if (!cardThreeOfAKindDoesntExists && !cardPairDoesntExists) {
-			rank = 5;
+			rank = 7;
+		} else {
+			// Another 2 of a kind
+			if (cards.stream().collect(Collectors
+					.collectingAndThen(Collectors.groupingBy(Card::getCardValue, Collectors.counting()), m -> {
+						m.values().removeIf(l -> l < 2);
+						return m.keySet();
+					})).size() > 1) {
+				rank = 3;
+			}
 		}
+
+		return rank;
+	}
+
+	private int furtherRankIfTheyAreEqual(List<Card> cards1, List<Card> cards2, int currentRank) {
+		int rank = 0;
+
+		Set<CardValue> moreThanOneOfAKindFilter = cards1.stream().collect(
+				Collectors.collectingAndThen(Collectors.groupingBy(Card::getCardValue, Collectors.counting()), m -> {
+					m.values().removeIf(l -> l < 2);
+					return m.keySet();
+				}));
+
+		moreThanOneOfAKindFilter.forEach(System.out::println);
 
 		return rank;
 	}
