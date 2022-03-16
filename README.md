@@ -31,4 +31,4 @@ Categories ranked
 
 Test cases
 ===========
-Will be adding more test cases
+Added more test cases for each ranking categories with data..
