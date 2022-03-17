@@ -53,7 +53,7 @@ public class Util {
 		int startIndex = bitsStrToInteger(new String(startIndexString));
 		int endIndex = bitsStrToInteger(new String(endIndexString));
 
-		for (int i = startIndex; i > endIndex; i--) {
+		for (int i = startIndex; i >= endIndex; i--) {
 			int bitsCount = countSetBits(i);
 			if (bitsCount == r) {
 				combinationStrings.add(integerToBitsStr(n, i).toCharArray());
@@ -88,11 +88,11 @@ public class Util {
 
 		char[] initialString = new char[n];
 
-		for (int i = 0; i < (swap ? n : r) ; i++) {
+		for (int i = 0; i < (swap ? n - r : r) ; i++) {
 			initialString[i] = swap ? '0' : '1';
 		}
 
-		for (int i = r; i < (swap ? r : n); i++) {
+		for (int i = (swap ? n -r : r); i < n; i++) {
 			initialString[i] = swap ? '1' : '0';
 		}
 

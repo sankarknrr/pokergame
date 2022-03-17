@@ -246,13 +246,17 @@ class PokerGameTest {
 
 	@Test
 	void testnCr() {
-		int n = 7;
-		int r = 3;
+		int[] n = new int[] {5, 6, 5, 7, 8, 5};
+		int[] r = new int[] {3, 3, 2, 4, 1, 1};
+		
+		for (int i = 0; i < n.length; i++) {
+			List<char[]> combinations = Util.nCr(n[i], r[i]);
+			combinations.forEach(System.out::println);
+			
+			assertEquals(Util.totalCombinations(n[i], r[i]), combinations.size());
+		}
 
-		List<char[]> combinations = Util.nCr(n, r);
 
-		combinations.forEach(System.out::println);
-		assertEquals(Util.totalCombinations(n, r), combinations.size());
 	}
 
 }
