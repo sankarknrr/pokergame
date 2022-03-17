@@ -147,7 +147,7 @@ class PokerGameTest {
 			cardD.add(new Card(Suit.CLUBS, CardValue.FIVE));
 			cardD.add(new Card(Suit.CLUBS, CardValue.QUEEN));
 		}
-		
+
 		if (category.equalsIgnoreCase("Sequence")) {
 			cardD.add(new Card(Suit.CLUBS, CardValue.FIVE));
 			cardD.add(new Card(Suit.SPADES, CardValue.JACK));
@@ -175,10 +175,10 @@ class PokerGameTest {
 
 		System.out.println("Playing four of kind hand");
 		List<Card> cards = PokerGame.playPoker(testData1("FourOfAKind"));
-		
+
 		System.out.println("\n\n Winning Combination = " + cards);
 		Map<CardValue, Long> m = RankByCategories.groupByCardValue(cards);
-		
+
 		assertTrue(m.values().removeIf(l -> l == 4));
 	}
 
@@ -187,13 +187,13 @@ class PokerGameTest {
 
 		System.out.println("Playing full house hand");
 		List<Card> cards = PokerGame.playPoker(testData1("FullHouse"));
-		
+
 		System.out.println("\n\n Winning Combination = " + cards);
 		Map<CardValue, Long> m = RankByCategories.groupByCardValue(cards);
 		// one 3 of a kind
-		m.values().removeIf(l -> l == 3 );
+		m.values().removeIf(l -> l == 3);
 		// one pair
-		m.values().removeIf(l -> l == 2 );
+		m.values().removeIf(l -> l == 2);
 
 		assertEquals(0, m.keySet().size());
 	}
@@ -242,6 +242,17 @@ class PokerGameTest {
 		List<Card> cards = PokerGame.playPoker(testData1("Sequence"));
 
 		System.out.println("Winning Combination = " + cards);
+	}
+
+	@Test
+	void testnCr() {
+		int n = 6;
+		int r = 3;
+
+		List<char[]> combinations = Util.nCr(n, r);
+
+		combinations.forEach(System.out::println);
+		assertEquals(Util.totalCombinations(n, r), combinations.size());
 	}
 
 }

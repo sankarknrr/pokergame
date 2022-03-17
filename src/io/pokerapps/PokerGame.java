@@ -93,7 +93,7 @@ public class PokerGame {
 
 	public static List<Card> playPoker(List<Player> players) {
 
-		List<char[]> combinations = Util.possibleCombinationsUsingBits();
+		List<char[]> combinations = Util.nCr(noOfCardPoker, 3);
 
 		List<List<Card>> player1CardCombinations = new ArrayList<List<Card>>();
 		List<List<Card>> player2CardCombinations = new ArrayList<List<Card>>();

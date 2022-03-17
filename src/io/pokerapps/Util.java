@@ -42,7 +42,64 @@ public class Util {
 		return combinationStrings;
 	}
 
-	private static int totalCombinations(int n, int r) {
+	public static List<char[]> nCr(int n, int r) {
+
+		char[] startIndexString = new char[n];
+		char[] endIndexString = new char[n];
+		List<char[]> combinationStrings = new ArrayList<char[]>();
+		startIndexString = formIndexString(n, r, false);
+		endIndexString = formIndexString(n, r, true);
+
+		int startIndex = bitsStrToInteger(new String(startIndexString));
+		int endIndex = bitsStrToInteger(new String(endIndexString));
+
+		for (int i = startIndex; i > endIndex; i--) {
+			int bitsCount = countSetBits(i);
+			if (bitsCount == r) {
+				combinationStrings.add(integerToBitsStr(n, i).toCharArray());
+			}
+		}
+
+		return combinationStrings;
+	}
+
+	private static int countSetBits(int n) {
+		int count = 0;
+		while (n > 0) {
+			count += n & 1;
+			n >>= 1;
+		}
+		
+		System.out.println(" n = " + n + "  bit count =" + count);
+		return count;
+	}
+
+	private static int bitsStrToInteger(String bitsStr) {
+
+		return Integer.parseInt(bitsStr, 2);
+	}
+
+	private static String integerToBitsStr(int n, int b) {
+
+		return String.format("%" + n + "s", Integer.toBinaryString(b)).replaceAll(" ", "0");
+	}
+
+	private static char[] formIndexString(int n, int r, boolean swap) {
+
+		char[] initialString = new char[n];
+
+		for (int i = 0; i < (swap ? n : r) ; i++) {
+			initialString[i] = swap ? '0' : '1';
+		}
+
+		for (int i = r; i < (swap ? r : n); i++) {
+			initialString[i] = swap ? '1' : '0';
+		}
+
+		return initialString;
+	}
+
+	public static int totalCombinations(int n, int r) {
 
 		int nFact = 1;
 		int rFact = 1;
