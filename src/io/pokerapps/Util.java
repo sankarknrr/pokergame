@@ -70,7 +70,7 @@ public class Util {
 			n >>= 1;
 		}
 		
-		System.out.println(" n = " + n + "  bit count =" + count);
+		//System.out.println(" n = " + n + "  bit count =" + count);
 		return count;
 	}
 

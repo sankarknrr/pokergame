@@ -246,7 +246,7 @@ class PokerGameTest {
 
 	@Test
 	void testnCr() {
-		int n = 6;
+		int n = 7;
 		int r = 3;
 
 		List<char[]> combinations = Util.nCr(n, r);
