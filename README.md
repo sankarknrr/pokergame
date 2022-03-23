@@ -32,3 +32,8 @@ Categories ranked
 Test cases
 ===========
 Added more test cases for each ranking categories with data..
+
+Notes
+========
+![DSC_0582](https://user-images.githubusercontent.com/99290308/159758483-ca80e7b3-738d-40dd-b811-4d147c3ba326.jpg)
+
